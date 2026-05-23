@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kotlin Learn - Platforma E-learningowa</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <div class="logo">Kotlin<span>Learn</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active">Start</a></li>
+            <li><a href="cwiczenia.html">Ćwiczenia</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+            ☰
+        </button>
+    </nav>
+
+    <!-- Sekcja Główna (Hero) -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Opanuj język Kotlin</h1>
+            <p>Ucz się nowoczesnego programowania krok po kroku dzięki interaktywnym ćwiczeniom i quizom.</p>
+            <div class="hero-buttons">
+                <a href="cwiczenia.html" class="btn btn-primary">Zacznij naukę</a>
+                <a href="quiz.html" class="btn btn-secondary">Sprawdź wiedzę</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sekcja Funkcji -->
+    <section class="features">
+        <div class="card">
+            <h3>Teoria i Praktyka</h3>
+            <p>Zrozumiałe lekcje połączone z natychmiastowym pisaniem kodu.</p>
+        </div>
+        <div class="card">
+            <h3>Interaktywne Ćwiczenia</h3>
+            <p>Rozwiązuj zadania i sprawdzaj swoje wyniki w czasie rzeczywistym.</p>
+        </div>
+        <div class="card">
+            <h3>Dynamiczne Quizy</h3>
+            <p>Testuj swoją wiedzę z poszczególnych modułów i zdobywaj odznaki.</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
