@@ -18,34 +18,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToMenuBtn = document.getElementById('backToMenuBtn');
     const retryExerciseBtn = document.getElementById('retryExerciseBtn');
 
-    // Stan aplikacji
-    let currentMode = ''; // 'blocks' lub 'gaps'
-    let currentExerciseIndex = 0;
+    // Elementy podsumowania końcowego
+    const exerciseScoreValue = document.getElementById('exerciseScoreValue');
+    const exerciseTotalValue = document.getElementById('exerciseTotalValue');
+    const exercisePercentage = document.getElementById('exercisePercentage');
+    const gradeBadge = document.getElementById('gradeBadge');
+    const exerciseFeedbackMessage = document.getElementById('exerciseFeedbackMessage');
 
-    // --- Baza Danych Ćwiczeń ---
+    // Stan aplikacji
+    let currentMode = ''; 
+    let currentExerciseIndex = 0;
+    let points = 0;
+    let alreadyChecked = false;
+
+    // Baza Danych Ćwiczeń
     const blocksData = [
         {
             instruction: "Ułóż poprawną funkcję main, która wypisuje tekst 'Hello World':",
-            correctOrder: [
-                "fun main() {",
-                "    println(\"Hello World\")",
-                "}"
-            ]
+            correctOrder: ["fun main() {", "    println(\"Hello World\")", "}"]
         },
         {
             instruction: "Ułóż funkcję zwracającą kwadrat podanej liczby całkowitej:",
-            correctOrder: [
-                "fun square(x: Int): Int {",
-                "    return x * x",
-                "}"
-            ]
+            correctOrder: ["fun square(x: Int): Int {", "    return x * x", "}"]
         }
     ];
 
     const gapsData = [
         {
             instruction: "Uzupełnij luki słowami kluczowymi tak, aby funkcja zwracała sumę dwóch liczb:",
-            // [gap] oznacza miejsce na pole tekstowe input
             template: "[gap] add(a: Int, b: Int): Int {\n    [gap] a + b\n}",
             answers: ["fun", "return"]
         },
@@ -55,8 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answers: ["var"]
         }
     ];
-
-    // --- Obsługa Wyboru Trybu ---
+     // Obsługa Wyboru Trybu
     btnBlocksMode.addEventListener('click', () => startExercises('blocks'));
     btnGapsMode.addEventListener('click', () => startExercises('gaps'));
     backToMenuBtn.addEventListener('click', showMenu);
@@ -71,18 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function startExercises(mode) {
         currentMode = mode;
         currentExerciseIndex = 0;
+        points = 0;
         modeSelection.classList.add('hidden');
         exerciseResultBox.classList.add('hidden');
         exerciseBox.classList.remove('hidden');
         loadExercise();
     }
 
-    // --- Ładowanie Zadania ---
+    // Ładowanie Zadania
     function loadExercise() {
         exerciseFeedback.textContent = '';
         checkBtn.classList.remove('hidden');
         nextExerciseBtn.classList.add('hidden');
         codeWorkspace.innerHTML = '';
+        alreadyChecked = false;
 
         const data = currentMode === 'blocks' ? blocksData : gapsData;
         exerciseProgress.textContent = `Zadanie ${currentExerciseIndex + 1} z ${data.length}`;
@@ -92,10 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentData = blocksData[currentExerciseIndex];
             exerciseInstruction.textContent = currentData.instruction;
 
-            // Kopiowanie i mieszanie linii kodu
             let shuffled = [...currentData.correctOrder].sort(() => Math.random() - 0.5);
             
-            // Renderowanie interaktywnej listy do przeciągania/przemieszczania kliknięciem
             shuffled.forEach(lineText => {
                 const block = document.createElement('div');
                 block.textContent = lineText;
@@ -107,9 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 block.style.border = '1px solid #555';
                 block.style.whiteSpace = 'pre';
                 
-                // Prosty mechanizm przenoszenia elementu na koniec/początek kliknięciem
                 block.addEventListener('click', () => {
-                    codeWorkspace.appendChild(block);
+                    if (!alreadyChecked) codeWorkspace.appendChild(block);
                 });
                 codeWorkspace.appendChild(block);
             });
@@ -119,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentData = gapsData[currentExerciseIndex];
             exerciseInstruction.textContent = currentData.instruction;
 
-            // Przekształcanie szablonu z [gap] na pola input HTML
             const parts = currentData.template.split('[gap]');
             const preElement = document.createElement('pre');
             preElement.style.margin = '0';
@@ -130,29 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.className = 'gap-input';
-                    input.style.background = '#1a1a2e';
-                    input.style.border = '1px solid #7F52FF';
-                    input.style.color = '#fff';
-                    input.style.padding = '2px 8px';
-                    input.style.fontFamily = 'monospace';
-                    input.style.fontSize = '16px';
-                    input.style.borderRadius = '4px';
-                    input.style.width = '80px';
-                    input.style.textAlign = 'center';
                     preElement.appendChild(input);
                 }
             });
             codeWorkspace.appendChild(preElement);
         }
     }
-
-    // --- Weryfikacja Odpowiedzi ---
+     // Sprawdzanie Wyniku
     checkBtn.addEventListener('click', () => {
+        let isCorrect = true;
+
         if (currentMode === 'blocks') {
             const currentData = blocksData[currentExerciseIndex];
             const currentBlocks = codeWorkspace.querySelectorAll('div');
             
-            let isCorrect = true;
             if (currentBlocks.length !== currentData.correctOrder.length) {
                 isCorrect = false;
             } else {
@@ -166,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isCorrect) {
                 exerciseFeedback.textContent = "Doskonale! Kod jest ułożony poprawnie. 🎉";
                 exerciseFeedback.style.color = '#28a745';
+                if (!alreadyChecked) points++;
                 checkBtn.classList.add('hidden');
                 nextExerciseBtn.classList.remove('hidden');
             } else {
@@ -177,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentData = gapsData[currentExerciseIndex];
             const inputs = codeWorkspace.querySelectorAll('.gap-input');
             
-            let isCorrect = true;
             inputs.forEach((input, idx) => {
                 if (input.value.trim() !== currentData.answers[idx]) {
                     isCorrect = false;
@@ -191,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 exerciseFeedback.textContent = "Świetnie! Wpisałeś poprawne słowa kluczowe. 🚀";
                 exerciseFeedback.style.color = '#28a745';
                 inputs.forEach(input => input.disabled = true);
+                if (!alreadyChecked) points++;
                 checkBtn.classList.add('hidden');
                 nextExerciseBtn.classList.remove('hidden');
             } else {
@@ -198,9 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 exerciseFeedback.style.color = '#dc3545';
             }
         }
+        alreadyChecked = true;
     });
 
-    // --- Przejście Dalej ---
+    // Nawigacja w zadaniach
     nextExerciseBtn.addEventListener('click', () => {
         currentExerciseIndex++;
         const data = currentMode === 'blocks' ? blocksData : gapsData;
@@ -208,8 +198,55 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentExerciseIndex < data.length) {
             loadExercise();
         } else {
-            exerciseBox.classList.add('hidden');
-            exerciseResultBox.classList.remove('hidden');
+            showSummary(data.length);
         }
     });
+
+    // Ekran Podsumowania i Oceniania
+    function showSummary(totalExercises) {
+        exerciseBox.classList.add('hidden');
+        exerciseResultBox.classList.remove('hidden');
+
+        const percentage = Math.round((points / totalExercises) * 100);
+        
+        exerciseScoreValue.textContent = points;
+        exerciseTotalValue.textContent = totalExercises;
+        exercisePercentage.textContent = `${percentage}%`;
+
+        let grade = 1;
+        let message = '';
+        let badgeColor = '#dc3545';
+
+        if (percentage === 100) {
+            grade = 6;
+            message = "Genialnie! Jesteś prawdziwym ekspertem od składni Kotlina! 🏆";
+            badgeColor = '#28a745';
+        } else if (percentage >= 85) {
+            grade = 5;
+            message = "Bardzo dobrze! Doskonale rozumiesz strukturę funkcji. 🚀";
+            badgeColor = '#218838';
+        } else if (percentage >= 70) {
+            grade = 4;
+            message = "Dobry wynik! Większość pojęć masz już opanowaną. 👍";
+            badgeColor = '#ffc107';
+            gradeBadge.style.color = '#333';
+        } else if (percentage >= 50) {
+            grade = 3;
+            message = "Zaliczone, ale sporo rzeczy wymaga powtórki. Przejrzyj teorię! 📚";
+            badgeColor = '#17a2b8';
+        } else if (percentage >= 30) {
+            grade = 2;
+            message = "Ledwo, ledwo. Musisz poświęcić więcej czasu na ćwiczenia. 💻";
+            badgeColor = '#fd7e14';
+        } else {
+            grade = 1;
+            message = "Niestety, ten wynik nie gwarantuje zrozumienia tematu. Spróbuj ponownie. ❌";
+            badgeColor = '#dc3545';
+        }
+
+        gradeBadge.textContent = `Ocena: ${grade}`;
+        gradeBadge.style.backgroundColor = badgeColor;
+        if (grade !== 4) gradeBadge.style.color = '#fff';
+        exerciseFeedbackMessage.textContent = message;
+    }
 });
