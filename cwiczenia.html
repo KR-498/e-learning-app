@@ -64,15 +64,17 @@
         </div>
 
         <!-- Ekran końca ćwiczeń -->
+        <!-- Ekran końca ćwiczeń (Zaktualizowany) -->
         <div id="exerciseResultBox" class="quiz-card hidden" style="text-align: center;">
-            <h2>Wspaniale!</h2>
-            <p class="score-text">Ukończyłeś ten moduł ćwiczeń!</p>
+            <h2>Koniec ćwiczeń!</h2>
+            <p class="score-text">Twój wynik to: <span id="exerciseScoreValue">0</span> / <span id="exerciseTotalValue">0</span> (<span id="exercisePercentage">0%</span>)</p>
+            <div id="gradeBadge" style="display: inline-block; padding: 10px 25px; background-color: #7F52FF; color: #fff; font-size: 24px; font-weight: bold; border-radius: 50px; margin-bottom: 20px;">Ocena: 5</div>
+            <p id="exerciseFeedbackMessage" style="font-size: 18px; margin-bottom: 30px; color: #555;">Świetna robota!</p>
             <div class="hero-buttons">
                 <button id="retryExerciseBtn" class="btn btn-primary">Spróbuj ponownie</button>
                 <a href="index.html" class="btn btn-secondary" style="border: 2px solid #1a1a2e; color: #1a1a2e;">Strona główna</a>
             </div>
         </div>
-
     </main>
 
     <script src="cwiczenia.js"></script>
