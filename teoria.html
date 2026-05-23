@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Learn - Teoria: Funkcje</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <div class="logo">Kotlin<span>Learn</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="teoria.html" class="active">Teoria</a></li>
+            <li><a href="cwiczenia.html">Ćwiczenia</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">☰</button>
+    </nav>
+
+    <!-- Kontener Artykułu -->
+    <main class="theory-container">
+        <article class="theory-card">
+            <h1>Funkcje w języku Kotlin</h1>
+            <p class="lead-text">Funkcje są fundamentalnym budulcem każdego programu w Kotlinie. Służą do organizowania kodu w reużywalne i logiczne bloki.</p>
+
+            <!-- Sekcja 1 -->
+            <section class="theory-section">
+                <h2>1. Definiowanie funkcji</h2>
+                <p>Każdą funkcję w Kotlinie deklarujemy za pomocą słowa kluczowego <code>fun</code>. Po nim następuje nazwa funkcji, nawiasy okrągłe (w których mogą znaleźć się parametry) oraz klamry otwierające ciało funkcji.</p>
+                
+                <div class="code-block">
+<span class="code-keyword">fun</span> <span class="code-function">sayHello</span>() {
+    <span class="code-function">println</span>(<span class="code-string">"Cześć, programisto!"</span>)
+}</div>
+            </section>
+
+            <!-- Sekcja 2 -->
+            <section class="theory-section">
+                <h2>2. Parametry funkcji</h2>
+                <p>Parametry definiujemy wewnątrz nawiasów okrągłych. W Kotlinie obowiązuje zasada <strong>nazwa: Typ</strong>. Każdy parametr musi mieć jasno określony typ danych. Wszystkie parametry funkcji są domyślnie niemodyfikowalne (działają jak <code>val</code>).</p>
+                
+                <div class="code-block">
+<span class="code-keyword">fun</span> <span class="code-function">printUserAge</span>(name: <span class="code-type">String</span>, age: <span class="code-type">Int</span>) {
+    <span class="code-function">println</span>(<span class="code-string">"$name ma $age lat."</span>)
+}</div>
+            </section>
+
+            <!-- Sekcja 3 -->
+            <section class="theory-section">
+                <h2>3. Wartości zwracane</h2>
+                <p>Jeśli funkcja ma zwracać wynik, jej typ określany jest **po dwukropku** za nawiasem z parametrami. Do zwrócenia konkretnej wartości używamy słowa kluczowego <code>return</code>.</p>
+                
+                <div class="code-block">
+<span class="code-keyword">fun</span> <span class="code-function">multiply</span>(a: <span class="code-type">Int</span>, b: <span class="code-type">Int</span>): <span class="code-type">Int</span> {
+    <span class="code-keyword">return</span> a * b
+}</div>
+                
+                <div class="info-note">
+                    <strong>💡 Typ Unit:</strong> Jeśli funkcja nie zwraca żadnej wartości, jej domyślnym typem zwracanym jest <code>Unit</code> (odpowiednik <code>void</code> z Javy). Dopisywanie go na końcu deklaracji funkcji jest opcjonalne.
+                </div>
+            </section>
+
+            <!-- Sekcja 4 -->
+            <section class="theory-section">
+                <h2>4. Funkcje jednougrupowe (Single-Expression functions)</h2>
+                <p>Gdy funkcja zwraca pojedyncze wyrażenie, możemy pominąć klamry oraz słowo <code>return</code>, stosując znak równości <code>=</code>.</p>
+                
+                <div class="code-block">
+<span class="code-keyword">fun</span> <span class="code-function">square</span>(x: <span class="code-type">Int</span>): <span class="code-type">Int</span> = x * x</div>
+            </section>
+
+            <!-- Dolna nawigacja lekcji -->
+            <div class="theory-footer">
+                <a href="cwiczenia.html" class="btn btn-primary">Przejdź do ćwiczeń</a>
+            </div>
+        </article>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
