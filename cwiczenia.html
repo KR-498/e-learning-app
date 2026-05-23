@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Learn - Ćwiczenia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <div class="logo">Kotlin<span>Learn</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="cwiczenia.html" class="active">Ćwiczenia</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">☰</button>
+    </nav>
+
+    <!-- Główny kontener -->
+    <main class="quiz-container">
+        
+        <!-- Ekran wyboru trybu -->
+        <div id="modeSelection" class="quiz-card">
+            <h2>Wybierz tryb ćwiczeń</h2>
+            <p style="margin-bottom: 30px; color: #555;">Wybierz format, w jakim chcesz trenować pisanie kodu w Kotlinie:</p>
+            <div class="answers-section">
+                <button id="btnBlocksMode" class="answer-btn" style="text-align: center; font-weight: bold;">
+                    🧩 Bloczki: Ułóż kod z rozsypanych linii
+                </button>
+                <button id="btnGapsMode" class="answer-btn" style="text-align: center; font-weight: bold;">
+                    ✍️ Uzupełnianie kodu: Wpisz brakujące słowa
+                </button>
+            </div>
+        </div>
+
+        <!-- Kontener dla ćwiczenia (wspólny dla obu trybów) -->
+        <div id="exerciseBox" class="quiz-card hidden">
+            <div class="quiz-header">
+                <h2 id="exerciseTitle">Ćwiczenie</h2>
+                <span class="progress" id="exerciseProgress">Zadanie 1 z 3</span>
+            </div>
+            
+            <div class="question-section">
+                <p id="exerciseInstruction" style="font-size: 18px; margin-bottom: 20px; font-weight: bold;"></p>
+                
+                <!-- Obszar roboczy dla kodu -->
+                <div id="codeWorkspace" style="background: #232334; color: #f8f8f2; padding: 25px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 16px; min-height: 100px; line-height: 2;">
+                    <!-- Tutaj JS wygeneruje luki lub linie kodu -->
+                </div>
+            </div>
+
+            <!-- Panel informacyjny o wyniku sprawdzenia -->
+            <p id="exerciseFeedback" style="margin: 20px 0; font-weight: bold; font-size: 18px; text-align: center;"></p>
+
+            <div class="quiz-footer" style="gap: 10px;">
+                <button id="backToMenuBtn" class="btn btn-secondary" style="border-color: #ccc; color: #333;">Menu</button>
+                <button id="checkBtn" class="btn btn-primary" style="background-color: #7F52FF;">Sprawdź</button>
+                <button id="nextExerciseBtn" class="btn btn-primary hidden">Dalej</button>
+            </div>
+        </div>
+
+        <!-- Ekran końca ćwiczeń -->
+        <div id="exerciseResultBox" class="quiz-card hidden" style="text-align: center;">
+            <h2>Wspaniale!</h2>
+            <p class="score-text">Ukończyłeś ten moduł ćwiczeń!</p>
+            <div class="hero-buttons">
+                <button id="retryExerciseBtn" class="btn btn-primary">Spróbuj ponownie</button>
+                <a href="index.html" class="btn btn-secondary" style="border: 2px solid #1a1a2e; color: #1a1a2e;">Strona główna</a>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="cwiczenia.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
