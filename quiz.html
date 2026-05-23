@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin Learn - Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <div class="logo">Kotlin<span>Learn</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="cwiczenia.html">Ćwiczenia</a></li>
+            <li><a href="quiz.html" class="active">Quiz</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+            ☰
+        </button>
+    </nav>
+
+    <!-- Kontener Quizu -->
+    <main class="quiz-container">
+        <div class="quiz-card" id="quizBox">
+            <div class="quiz-header">
+                <h2>Quiz wiedzy o Kotlinie</h2>
+                <div class="progress" id="progressText">Pytanie 1 z 3</div>
+            </div>
+            
+            <div class="question-section">
+                <h3 id="questionElement">Tutaj pojawi się pytanie?</h3>
+            </div>
+
+            <div class="answers-section" id="answersContainer">
+                <!-- Odpowiedzi będą generowane dynamicznie przez JS -->
+            </div>
+
+            <div class="quiz-footer">
+                <button id="nextBtn" class="btn btn-primary" disabled>Następne pytanie</button>
+            </div>
+        </div>
+
+        <!-- Ekran Wyniku (Ukryty na starcie) -->
+        <div class="quiz-card hidden" id="resultBox">
+            <h2>Koniec Quizu!</h2>
+            <p class="score-text">Twój wynik to: <span id="scoreValue">0</span>/<span id="totalValue">0</span></p>
+            <p id="feedbackMessage"></p>
+            <button id="restartBtn" class="btn btn-primary">Spróbuj ponownie</button>
+        </div>
+    </main>
+
+    <script src="quiz.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
